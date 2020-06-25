@@ -3,7 +3,8 @@ import * as React from 'react';
 
 import TabBarIcon from '../components/TabBarIcon';
 import HomeScreen from '../screens/HomeScreen';
-import LinksScreen from '../screens/LinksScreen';
+import PacientesScreen from '../screens/PacientesScreen';
+import CalendarioScreen from '../screens/CalendarioScreen';
 
 const BottomTab = createBottomTabNavigator();
 const INITIAL_ROUTE_NAME = 'Home';
@@ -20,16 +21,24 @@ export default function BottomTabNavigator({ navigation, route }) {
         name="Home"
         component={HomeScreen}
         options={{
-          title: 'Get Started',
-          tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name="md-code-working" />,
+          title: 'Home',
+          tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name="md-home" />,
         }}
       />
       <BottomTab.Screen
-        name="Links"
-        component={LinksScreen}
+        name="Mis Pacientes"
+        component={PacientesScreen}
         options={{
-          title: 'Resources',
-          tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name="md-book" />,
+          title: 'Mis Pacientes',
+          tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name="md-contact" />,
+        }}
+      />
+      <BottomTab.Screen
+        name="Calendario"
+        component={CalendarioScreen}
+        options={{
+          title: 'Calendario',
+          tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name="md-calendar" />,
         }}
       />
     </BottomTab.Navigator>
@@ -41,8 +50,10 @@ function getHeaderTitle(route) {
 
   switch (routeName) {
     case 'Home':
-      return 'How to get started';
-    case 'Links':
-      return 'Links to learn more';
+      return 'Home';
+    case 'Mis Pacientes':
+      return 'Mis Pacientes';
+    case 'Calendario':
+      return 'Calendario';
   }
 }
