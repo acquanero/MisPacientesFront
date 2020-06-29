@@ -41,7 +41,7 @@ function ShiftsListScreen({ navigation }) {
       if (loading) {
         return <LoadingSpinner show={loading} />;
       }
-      return <Text h3>No hay resultados</Text>;
+      return <Text>No hay resultados</Text>;
     }
 
     return (
