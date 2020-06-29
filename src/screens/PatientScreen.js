@@ -15,6 +15,15 @@ import {
 import LoadingSpinner from "../components/LoadingSpinner";
 import { formatDate } from "../utils/dates";
 
+const GenericList = ({ list }) => {
+  if (!list || list.length === 0) {
+    return <Text> Sin datos </Text>;
+  }
+  return list.map((item) => {
+    return <Text key={item}>{item}</Text>;
+  });
+};
+
 function PatientScreen({ navigation }) {
   const id = navigation.getParam("id", null);
 
@@ -46,7 +55,7 @@ function PatientScreen({ navigation }) {
       if (loading) {
         return <LoadingSpinner show={loading} />;
       }
-      return <Text h3>No hay resultados</Text>;
+      return <Text>No hay resultados</Text>;
     }
     const {
       nombre,
@@ -68,7 +77,7 @@ function PatientScreen({ navigation }) {
       <React.Fragment>
         <Card>
           <CardItem header bordered>
-            <Text h3>Info del paciente</Text>
+            <Text>Info del paciente</Text>
           </CardItem>
           <CardItem bordered>
             <Body>
@@ -83,38 +92,38 @@ function PatientScreen({ navigation }) {
           </CardItem>
 
           <CardItem header bordered>
-            <Text h3>Antecedentes</Text>
+            <Text>Antecedentes</Text>
           </CardItem>
-          <CardItem>
+          <CardItem bordered>
             <Body>
-              <Text>{antecedentes}</Text>
+              <GenericList list={antecedentes} />
             </Body>
           </CardItem>
 
           <CardItem header bordered>
-            <Text h3>Medicación Habitual</Text>
+            <Text> Medicación Habitual </Text>
           </CardItem>
-          <CardItem>
+          <CardItem bordered>
             <Body>
-              <Text>{medicacionHabitual}</Text>
+              <GenericList list={medicacionHabitual} />
             </Body>
           </CardItem>
 
           <CardItem header bordered>
-            <Text h3>Alergias</Text>
+            <Text>Alergias</Text>
           </CardItem>
-          <CardItem>
+          <CardItem bordered>
             <Body>
-              <Text>{alergias}</Text>
+              <GenericList list={alergias} />
             </Body>
           </CardItem>
 
           <CardItem header bordered>
-            <Text h3>Cirugías</Text>
+            <Text>Cirugías</Text>
           </CardItem>
-          <CardItem>
+          <CardItem bordered>
             <Body>
-              <Text>{cirugias}</Text>
+              <GenericList list={cirugias} />
             </Body>
           </CardItem>
         </Card>
