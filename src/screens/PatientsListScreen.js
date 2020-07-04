@@ -36,25 +36,23 @@ function PatientsListScreen({ navigation }) {
     }
 
     return (
-      <React.Fragment>
-        <List>
-          {patients.map(({ _id, idPaciente, nombre, apellido }) => {
-            return (
-              <ListItem
-                key={_id}
-                button
-                onPress={() => {
-                  openPatient(_id);
-                }}
-              >
-                <Text>
-                  {nombre} {apellido}
-                </Text>
-              </ListItem>
-            );
-          })}
-        </List>
-      </React.Fragment>
+      <List>
+        {patients.map(({ _id, nombre, apellido }) => {
+          return (
+            <ListItem
+              key={_id}
+              button
+              onPress={() => {
+                openPatient(_id);
+              }}
+            >
+              <Text>
+                {nombre} {apellido}
+              </Text>
+            </ListItem>
+          );
+        })}
+      </List>
     );
   };
 
