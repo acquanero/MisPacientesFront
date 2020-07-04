@@ -12,6 +12,8 @@ import PatientsListScreen from "../screens/PatientsListScreen";
 import RegisterScreen from "../screens/RegisterScreen";
 import ShiftScreen from "../screens/ShiftScreen";
 import ShiftsListScreen from "../screens/ShiftsListScreen";
+import EvolutionListScreen from "../screens/EvolutionListScreen";
+import EvolutionScreen from "../screens/EvolutionScreen";
 
 // Sección turnos en el tab bar
 const ShiftsNavigator = createStackNavigator(
@@ -41,6 +43,12 @@ const PatientsNavigator = createStackNavigator(
     Patient: {
       screen: PatientScreen,
     },
+    EvolutionList:{
+      screen: EvolutionListScreen,
+    },
+    Evolution:{
+      screen: EvolutionScreen,
+    }
   },
   {
     navigationOptions: {
