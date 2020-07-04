@@ -1,17 +1,6 @@
+import { Body, Card, CardItem, Container, Content, Text } from "native-base";
 import React, { useEffect, useState } from "react";
-import { Block } from "../components";
 import API from "../api";
-import {
-  Container,
-  Content,
-  Card,
-  CardItem,
-  List,
-  ListItem,
-  Text,
-  Body,
-  Title,
-} from "native-base";
 import LoadingSpinner from "../components/LoadingSpinner";
 
 function ShiftScreen({ navigation }) {
@@ -24,10 +13,6 @@ function ShiftScreen({ navigation }) {
       try {
         setLoading(true);
         const response = await API.get(`/turnos/${id}`);
-
-        console.log("------------c------------------");
-        console.log(response.data);
-        console.log("---------------x---------------");
 
         setShift(response.data);
       } catch (error) {

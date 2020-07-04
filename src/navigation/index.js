@@ -1,20 +1,19 @@
 import React from "react";
-import { Image } from "react-native";
 import { createAppContainer, createSwitchNavigator } from "react-navigation";
 import { createStackNavigator } from "react-navigation-stack";
 import { createBottomTabNavigator } from "react-navigation-tabs";
 import TabBarIcon from "../components/TabBarIcon";
 import { theme } from "../constants";
-import AuthLoadingScreen from "../screens/AuthLoadingScreen";
 import CalendarScreen from "../screens/CalendarScreen";
 import LoginScreen from "../screens/LoginScreen";
+import OnBoardingScreen from "../screens/OnBoardingScreen";
+import PatientScreen from "../screens/PatientScreen";
 import PatientsListScreen from "../screens/PatientsListScreen";
 import RegisterScreen from "../screens/RegisterScreen";
-import ShiftsListScreen from "../screens/ShiftsListScreen";
-import PatientScreen from "../screens/PatientScreen";
 import ShiftScreen from "../screens/ShiftScreen";
+import ShiftsListScreen from "../screens/ShiftsListScreen";
 
-// Sección de home en el tab bar
+// Sección turnos en el tab bar
 const ShiftsNavigator = createStackNavigator(
   {
     ShiftsList: {
@@ -36,7 +35,7 @@ const ShiftsNavigator = createStackNavigator(
 // Sección de pacientes en el tab bar
 const PatientsNavigator = createStackNavigator(
   {
-    Patients: {
+    PatientsList: {
       screen: PatientsListScreen,
     },
     Patient: {
@@ -69,22 +68,27 @@ const CalendarNavigator = createStackNavigator(
   }
 );
 // Tab bar en si
-const AppNavigator = createBottomTabNavigator(
+const AppTabsNavigator = createBottomTabNavigator(
   {
-    Home: ShiftsNavigator,
+    Shifts: ShiftsNavigator,
     Patients: PatientsNavigator,
     Calendar: CalendarNavigator,
   },
   {
-    initialRouteName: "Patients",
+    initialRouteName: "Shifts",
   }
 );
+
+// Sección de chequeo de token
+const OnBoardingNavigator = createStackNavigator({
+  OnBoarding: {
+    screen: OnBoardingScreen,
+  },
+});
+
 // Sección de autenticación
 const AuthNavigator = createStackNavigator(
   {
-    AuthLoading: {
-      screen: AuthLoadingScreen,
-    },
     Login: {
       screen: LoginScreen,
     },
@@ -93,26 +97,12 @@ const AuthNavigator = createStackNavigator(
     },
   },
   {
-    initialRouteName: "AuthLoading",
+    initialRouteName: "Login",
     defaultNavigationOptions: {
       headerStyle: {
-        height: theme.sizes.base * 4,
-        backgroundColor: theme.colors.white, // or 'white
+        backgroundColor: theme.colors.white,
         borderBottomColor: "transparent",
-        elevation: 0, // for android
-      },
-      headerBackImage: (
-        <Image source={require("../../assets/icons/back.png")} />
-      ),
-      headerBackTitle: null,
-      headerLeftContainerStyle: {
-        alignItems: "center",
-        marginLeft: theme.sizes.base,
-        paddingRight: theme.sizes.base,
-      },
-      headerRightContainerStyle: {
-        alignItems: "center",
-        paddingRight: theme.sizes.base,
+        elevation: 0, // ocultar la linea del header
       },
     },
   }
@@ -121,11 +111,12 @@ const AuthNavigator = createStackNavigator(
 // Sección base
 const BaseStack = createSwitchNavigator(
   {
+    OnBoarding: OnBoardingNavigator,
     Auth: AuthNavigator,
-    App: AppNavigator,
+    App: AppTabsNavigator,
   },
   {
-    initialRouteName: "Auth",
+    initialRouteName: "OnBoarding",
   }
 );
 

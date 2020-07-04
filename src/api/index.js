@@ -2,6 +2,8 @@ import axios from "axios";
 
 const BASE_URL = "https://damp-waters-55481.herokuapp.com/api";
 
+const DEBUG = false; // Muestra los logs de las peticiones si esta en true
+
 const API = axios.create({
   baseURL: BASE_URL,
   headers: {
@@ -19,7 +21,7 @@ function getUrl(config) {
 // Intercept all request
 API.interceptors.request.use(
   (config) => {
-    console.log(`${config.method.toUpperCase()} - ${getUrl(config)}:`);
+    DEBUG && console.log(`${config.method.toUpperCase()} - ${getUrl(config)}:`);
     return config;
   },
   (error) => Promise.reject(error)
@@ -28,18 +30,20 @@ API.interceptors.request.use(
 // Intercept all responses
 API.interceptors.response.use(
   async (response) => {
-    console.log(
-      `${response.status} - ${getUrl(response.config)}:`,
-      response.data
-    );
+    DEBUG &&
+      console.log(
+        `${response.status} - ${getUrl(response.config)}:`,
+        response.data
+      );
     return response;
   },
 
   (error) => {
-    console.log(
-      `${error.response.status} - ${getUrl(error.response.config)}:`,
-      error.response
-    );
+    DEBUG &&
+      console.log(
+        `${error.response.status} - ${getUrl(error.response.config)}:`,
+        error.response
+      );
     return Promise.reject(error);
   }
 );

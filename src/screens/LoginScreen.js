@@ -1,16 +1,13 @@
 import React, { useState } from "react";
 import {
   ActivityIndicator,
-  Keyboard,
+  AsyncStorage,
   KeyboardAvoidingView,
   StyleSheet,
-  Alert,
-  AsyncStorage,
 } from "react-native";
-
-import { Button, Block, Input, Text } from "../components";
-import { theme } from "../constants";
 import API from "../api";
+import { Block, Button, Input, Text } from "../components";
+import { theme } from "../constants";
 
 const VALID_EMAIL = "test@test.com";
 const VALID_PASSWORD = "1234";
@@ -28,9 +25,9 @@ const Login = (props) => {
   const hasErrors = (key) => (errors.includes(key) ? styles.hasErrors : null);
 
   const handleLogin = async () => {
-    navigation.navigate("Patients");
+    // TODO: Sacar cuando este listo el back
+    navigation.navigate("Shifts");
     return;
-
     setLoading(true);
     const { email, password } = state;
 
@@ -42,8 +39,8 @@ const Login = (props) => {
       });
 
       try {
-        AsyncStorage.setItem("token2", response.data.token); // se guarda en el asyncStorage que es la memoria de la app
-        navigation.navigate("Patients"); // se va a la pantalla de pacientes
+        AsyncStorage.setItem("token", response.data.token); // se guarda en el asyncStorage que es la memoria de la app
+        navigation.navigate("Shifts"); // se va a la pantalla de turnos
       } catch (e) {
         console.log("ERROR_ ", e);
         // si ocurre un error al parsear es porque no devolvio el token, si no, un mensaje de error

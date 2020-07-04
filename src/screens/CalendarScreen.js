@@ -1,16 +1,12 @@
-import { Ionicons } from "@expo/vector-icons";
-import * as WebBrowser from "expo-web-browser";
-import * as React from "react";
-import { StyleSheet, Text, View } from "react-native";
-import { RectButton, ScrollView } from "react-native-gesture-handler";
-import { Calendar, CalendarList, Agenda } from "react-native-calendars";
+import React from "react";
+import { StyleSheet } from "react-native";
+import { Calendar } from "react-native-calendars";
+import { ScrollView } from "react-native-gesture-handler";
+import ToolbarActions from "../components/ToolbarActions";
 
 export default function CalendarScreen() {
   return (
-    <ScrollView
-      style={styles.container}
-      contentContainerStyle={styles.contentContainer}
-    >
+    <ScrollView style={styles.container}>
       <Calendar />
     </ScrollView>
   );
@@ -19,13 +15,10 @@ export default function CalendarScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fafafa",
-  },
-  contentContainer: {
-    paddingTop: 15,
   },
 });
 
 CalendarScreen.navigationOptions = {
   title: "Calendario",
+  headerRight: () => <ToolbarActions />,
 };
