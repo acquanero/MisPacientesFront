@@ -60,12 +60,12 @@ const Login = (props) => {
   return (
     <KeyboardAvoidingView style={styles.login} behavior="height">
       <Block padding={[0, theme.sizes.base * 2]}>
-        <Text h1 bold>
+        <Text style={styles.tituloInicio}>
           Iniciar Sesión
         </Text>
         <Block middle>
           <Input
-            label="Email"
+            placeholder="Email"
             error={hasErrors("email")}
             style={[styles.input, hasErrors("email")]}
             defaultValue={state.email}
@@ -73,13 +73,15 @@ const Login = (props) => {
           />
           <Input
             secure
-            label="Contraseña"
+            placeholder="Contraseña"
             error={hasErrors("password")}
             style={[styles.input, hasErrors("password")]}
             defaultValue={state.password}
             onChangeText={(text) => setState({ ...state, password: text })}
           />
-          <Button gradient onPress={handleLogin}>
+
+        </Block>
+        <Button gradient onPress={handleLogin}>
             {loading ? (
               <ActivityIndicator size="small" color="white" />
             ) : (
@@ -99,11 +101,21 @@ const Login = (props) => {
               No tenes cuenta? Registrate
             </Text>
           </Button>
-        </Block>
       </Block>
     </KeyboardAvoidingView>
   );
 };
+
+Login.navigationOptions={
+  title: 'Mis Pacientes',
+  headerStyle:{
+    backgroundColor: 'rgb(138,234,228)'
+  },
+  headerTitleStyle:{
+    fontWeight: '700',
+    fontSize: 30
+  }
+}
 
 const styles = StyleSheet.create({
   login: {
@@ -119,6 +131,10 @@ const styles = StyleSheet.create({
   hasErrors: {
     borderBottomColor: theme.colors.accent,
   },
+  tituloInicio:{
+    paddingTop: 25,
+    fontSize: 25
+  }
 });
 
 export default Login;

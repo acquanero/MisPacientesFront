@@ -42,13 +42,13 @@ function PatientsListScreen({ navigation }) {
 
     return (
       <List>
-        {patients.map(({ _id, idPaciente, nombre, apellido }) => {
+        {patients.map(({ _id, nombre, apellido }) => {
           return (
             <ListItem
               key={_id}
               button
               onPress={() => {
-                openPatient(idPaciente);
+                openPatient(_id);
               }}
             >
               <Text>
