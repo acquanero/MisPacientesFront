@@ -1,17 +1,13 @@
 import React, { useState } from "react";
 import {
   ActivityIndicator,
-  Keyboard,
+  Alert,
   KeyboardAvoidingView,
   StyleSheet,
-  ScrollView,
-  Alert,
 } from "react-native";
-
-import { Button, Block, Input, Text } from "../components";
-import { theme } from "../constants";
-import { Header } from "react-navigation-stack";
 import API from "../api";
+import { Block, Button, Input, Text } from "../components";
+import { theme } from "../constants";
 
 const Login = (props) => {
   const [loading, setLoading] = useState(false);
@@ -36,7 +32,6 @@ const Login = (props) => {
         email,
         password,
       });
-      console.log("RESPONSE: ", response);
       return Alert.alert("Exito", "Usuario Creado", [
         {
           text: "Ir al inicio",
@@ -90,6 +85,17 @@ const Login = (props) => {
                 Registrate
               </Text>
             )}
+          </Button>
+
+          <Button onPress={() => navigation.navigate("Login")}>
+            <Text
+              gray
+              caption
+              center
+              style={{ textDecorationLine: "underline" }}
+            >
+              Ya tenes cuenta? Inicia Sesión
+            </Text>
           </Button>
         </Block>
       </Block>

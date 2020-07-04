@@ -1,8 +1,8 @@
+import { Container, Content, List, ListItem, Text } from "native-base";
 import React, { useEffect, useState } from "react";
-import { Block } from "../components";
 import API from "../api";
-import { List, ListItem, Text, Container, Content } from "native-base";
 import LoadingSpinner from "../components/LoadingSpinner";
+import ToolbarActions from "../components/ToolbarActions";
 import { formatDateTime } from "../utils/dates";
 
 function ShiftsListScreen({ navigation }) {
@@ -16,10 +16,6 @@ function ShiftsListScreen({ navigation }) {
         setLoading(true);
         const response = await API.get(`/turnos`);
 
-        console.log("------------c------------------");
-        console.log(response.data);
-        console.log("---------------x---------------");
-
         setShiftList(response.data);
       } catch (error) {
         console.error(error);
@@ -32,7 +28,6 @@ function ShiftsListScreen({ navigation }) {
   }, []);
 
   const openShift = (id) => {
-    //Alert.alert("Click en : ", id);
     navigation.navigate("Shift", { id });
   };
 
@@ -76,6 +71,7 @@ function ShiftsListScreen({ navigation }) {
 
 ShiftsListScreen.navigationOptions = {
   title: "Turnos",
+  headerRight: () => <ToolbarActions />,
 };
 
 export default ShiftsListScreen;

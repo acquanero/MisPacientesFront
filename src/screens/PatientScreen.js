@@ -1,43 +1,29 @@
-import React, { useEffect, useState } from "react";
-import { Block } from "../components";
-import API from "../api";
 import {
-  Container,
-  Content,
+  Body,
+  Button,
   Card,
   CardItem,
-  List,
-  ListItem,
+  Container,
+  Content,
+  Fab,
+  Icon,
   Text,
-  Body,
-  Title,
 } from "native-base";
-import LoadingSpinner from "../components/LoadingSpinner";
+import React, { useEffect, useState } from "react";
+import API from "../api";
+import { LoadingSpinner, GenericList } from "../components";
 import { formatDate } from "../utils/dates";
-
-const GenericList = ({ list }) => {
-  if (!list || list.length === 0) {
-    return <Text> Sin datos </Text>;
-  }
-  return list.map((item) => {
-    return <Text key={item}>{item}</Text>;
-  });
-};
 
 function PatientScreen({ navigation }) {
   const id = navigation.getParam("id", null);
-
+  const [active, setActive] = useState(false);
   const [patient, setPatient] = useState(null);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   useEffect(() => {
     async function getPatient() {
       try {
         setLoading(true);
         const response = await API.get(`/pacientes/${id}`);
-
-        console.log("------------c------------------");
-        console.log(response.data);
-        console.log("---------------x---------------");
 
         setPatient(response.data);
       } catch (error) {
@@ -134,6 +120,26 @@ function PatientScreen({ navigation }) {
   return (
     <Container>
       <Content>{renderPatientInfo()}</Content>
+      {/* Menu de opciones */}
+      <Fab
+        active={active}
+        direction="up"
+        containerStyle={{}}
+        style={{ backgroundColor: "#5067FF" }}
+        position="bottomRight"
+        onPress={() => setActive(!active)}
+      >
+        <Icon name="more" />
+        <Button style={{ backgroundColor: "#3B5998" }}>
+          <Icon type="Feather" name="clipboard" />
+        </Button>
+        <Button style={{ backgroundColor: "#34A34F" }}>
+          <Icon type="FontAwesome" name="pencil" />
+        </Button>
+        <Button style={{ backgroundColor: "#DD5144" }}>
+          <Icon type="Feather" name="trash" />
+        </Button>
+      </Fab>
     </Container>
   );
 }

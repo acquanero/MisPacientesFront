@@ -1,21 +1,17 @@
+import { Content, Fab, Icon, List, ListItem, Text } from "native-base";
 import React, { useEffect, useState } from "react";
-import { Block, Text } from "../components";
-import TabBarIcon from "../components/TabBarIcon";
 import API from "../api";
-import { Container, Content, List, ListItem } from "native-base";
-
-import { Alert } from "react-native";
-import LoadingSpinner from "../components/LoadingSpinner";
+import { LoadingSpinner, ToolbarActions } from "../components";
 
 function PatientsListScreen({ navigation }) {
   const [patients, setPatients] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
+
   useEffect(() => {
     async function getPatients() {
       try {
         setLoading(true);
         const response = await API.get("/pacientes");
-        console.log(response.data);
         setPatients(response.data);
       } catch (error) {
         console.error(error);
@@ -28,7 +24,6 @@ function PatientsListScreen({ navigation }) {
   }, []);
 
   const openPatient = (id) => {
-    //  Alert.alert("Click en : ", id);
     navigation.navigate("Patient", { id });
   };
 
@@ -62,14 +57,23 @@ function PatientsListScreen({ navigation }) {
   };
 
   return (
-    <Container>
+    <React.Fragment>
       <Content>{renderPatientsList()}</Content>
-    </Container>
+      <Fab
+        direction="up"
+        containerStyle={{}}
+        style={{ backgroundColor: "#5067FF" }}
+        position="bottomRight"
+      >
+        <Icon name="add" />
+      </Fab>
+    </React.Fragment>
   );
 }
 
 PatientsListScreen.navigationOptions = {
   title: "Pacientes",
+  headerRight: () => <ToolbarActions />,
 };
 
 export default PatientsListScreen;

@@ -1,16 +1,13 @@
 import React, { useState } from "react";
 import {
   ActivityIndicator,
-  Keyboard,
+  AsyncStorage,
   KeyboardAvoidingView,
   StyleSheet,
-  Alert,
-  AsyncStorage,
 } from "react-native";
-
-import { Button, Block, Input, Text } from "../components";
-import { theme } from "../constants";
 import API from "../api";
+import { Block, Button, Input, Text } from "../components";
+import { theme } from "../constants";
 
 const VALID_EMAIL = "test@test.com";
 const VALID_PASSWORD = "1234";
@@ -28,9 +25,9 @@ const Login = (props) => {
   const hasErrors = (key) => (errors.includes(key) ? styles.hasErrors : null);
 
   const handleLogin = async () => {
-    navigation.navigate("Patients");
+    // TODO: Sacar cuando este listo el back
+    navigation.navigate("Shifts");
     return;
-
     setLoading(true);
     const { email, password } = state;
 
@@ -42,8 +39,8 @@ const Login = (props) => {
       });
 
       try {
-        AsyncStorage.setItem("token2", response.data.token); // se guarda en el asyncStorage que es la memoria de la app
-        navigation.navigate("Patients"); // se va a la pantalla de pacientes
+        AsyncStorage.setItem("token", response.data.token); // se guarda en el asyncStorage que es la memoria de la app
+        navigation.navigate("Shifts"); // se va a la pantalla de turnos
       } catch (e) {
         console.log("ERROR_ ", e);
         // si ocurre un error al parsear es porque no devolvio el token, si no, un mensaje de error
@@ -60,12 +57,12 @@ const Login = (props) => {
   return (
     <KeyboardAvoidingView style={styles.login} behavior="height">
       <Block padding={[0, theme.sizes.base * 2]}>
-        <Text style={styles.tituloInicio}>
+        <Text h1 bold>
           Iniciar Sesión
         </Text>
         <Block middle>
           <Input
-            placeholder="Email"
+            label="Email"
             error={hasErrors("email")}
             style={[styles.input, hasErrors("email")]}
             defaultValue={state.email}
@@ -73,15 +70,13 @@ const Login = (props) => {
           />
           <Input
             secure
-            placeholder="Contraseña"
+            label="Contraseña"
             error={hasErrors("password")}
             style={[styles.input, hasErrors("password")]}
             defaultValue={state.password}
             onChangeText={(text) => setState({ ...state, password: text })}
           />
-
-        </Block>
-        <Button gradient onPress={handleLogin}>
+          <Button gradient onPress={handleLogin}>
             {loading ? (
               <ActivityIndicator size="small" color="white" />
             ) : (
@@ -101,21 +96,11 @@ const Login = (props) => {
               No tenes cuenta? Registrate
             </Text>
           </Button>
+        </Block>
       </Block>
     </KeyboardAvoidingView>
   );
 };
-
-Login.navigationOptions={
-  title: 'Mis Pacientes',
-  headerStyle:{
-    backgroundColor: 'rgb(138,234,228)'
-  },
-  headerTitleStyle:{
-    fontWeight: '700',
-    fontSize: 30
-  }
-}
 
 const styles = StyleSheet.create({
   login: {
@@ -131,10 +116,6 @@ const styles = StyleSheet.create({
   hasErrors: {
     borderBottomColor: theme.colors.accent,
   },
-  tituloInicio:{
-    paddingTop: 25,
-    fontSize: 25
-  }
 });
 
 export default Login;

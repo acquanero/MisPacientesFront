@@ -2,9 +2,9 @@ import { Ionicons } from "@expo/vector-icons";
 import { registerRootComponent, SplashScreen } from "expo";
 import { Asset } from "expo-asset";
 import * as Font from "expo-font";
+import { Container } from "native-base";
 import React from "react";
-import { Platform, StyleSheet, StatusBar, SafeAreaView } from "react-native";
-import { Block } from "./components";
+import { SafeAreaView, StyleSheet } from "react-native";
 import Navigation from "./navigation";
 
 const images = [require("../assets/icons/back.png")];
@@ -48,10 +48,9 @@ function App(props) {
   } else {
     return (
       <SafeAreaView style={styles.container}>
-        <Block middle>
-          {Platform.OS === "ios" && <StatusBar barStyle="dark-content" />}
+        <Container>
           <Navigation />
-        </Block>
+        </Container>
       </SafeAreaView>
     );
   }
