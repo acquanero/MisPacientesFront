@@ -11,51 +11,29 @@ import {
 import { Button, Block, Input, Text } from "../components";
 import { theme } from "../constants";
 import API from "../api";
+import { cos } from "react-native-reanimated";
 
-const VALID_EMAIL = "test@test.com";
-const VALID_PASSWORD = "1234";
-
-const Login = (props) => {
+const Login = ({ navigation }) => {
   const [loading, setLoading] = useState(false);
-  const [state, setState] = useState({
-    email: VALID_EMAIL,
-    password: VALID_PASSWORD,
-    errors: [],
-  });
+  const [mail, setMail] = useState("");
+  const [password, setPassword] = useState("");
+  const [medicoId, setMedicoId] = useState("dddd");
 
-  const { navigation } = props;
-  const { errors } = state;
-  const hasErrors = (key) => (errors.includes(key) ? styles.hasErrors : null);
-
-  const handleLogin = async () => {
-    navigation.navigate("Patients");
-    return;
-
-    setLoading(true);
-    const { email, password } = state;
-
+  async function handleLogin() {
     try {
-      // Intentamos pegarle al endpoint de login
-      const response = await API.post("/auth/login", {
-        email,
-        password,
-      });
+      setLoading(true);
+      const response = await API.get(`medicos/checkexistence/${mail}-${password}`);
+      {setMedicoId(response.data)}
+      console.log("------------c------------------");
+      console.log({medicoId});
+      console.log("---------------x---------------");
 
-      try {
-        AsyncStorage.setItem("token2", response.data.token); // se guarda en el asyncStorage que es la memoria de la app
-        navigation.navigate("Patients"); // se va a la pantalla de pacientes
-      } catch (e) {
-        console.log("ERROR_ ", e);
-        // si ocurre un error al parsear es porque no devolvio el token, si no, un mensaje de error
-        // throw response.data; // lanzamos la excepción para que la agarre el catch con el mensaje que viene del back (Usuario o contraseña invalido)
-      }
     } catch (error) {
-      console.log("Error: ", error.message);
-      // Alert.alert("Error", error.message);
+      console.log(error);
     } finally {
-      setLoading(false);
+      setLoading(false)
     }
-  };
+  }
 
   return (
     <KeyboardAvoidingView style={styles.login} behavior="height">
@@ -66,18 +44,18 @@ const Login = (props) => {
         <Block middle>
           <Input
             placeholder="Email"
-            error={hasErrors("email")}
-            style={[styles.input, hasErrors("email")]}
-            defaultValue={state.email}
-            onChangeText={(text) => setState({ ...state, email: text })}
+            style={[styles.input]}
+            onChangeText={(text) => {
+              setMail(text)
+            }}
           />
           <Input
             secure
             placeholder="Contraseña"
-            error={hasErrors("password")}
-            style={[styles.input, hasErrors("password")]}
-            defaultValue={state.password}
-            onChangeText={(text) => setState({ ...state, password: text })}
+            style={[styles.input]}
+            onChangeText={(text) => {
+              setPassword(text)
+            }}
           />
 
         </Block>
