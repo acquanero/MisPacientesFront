@@ -9,7 +9,6 @@ function EvolutionListScreen({ navigation }) {
     const [evolutions, setEvolutions] = useState([]);
     const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
     async function getEvolutions() {
       try {
         setLoading(true);
@@ -22,6 +21,7 @@ function EvolutionListScreen({ navigation }) {
       }
     }
 
+  useEffect(() => {
     getEvolutions();
   }, []);
 
@@ -30,7 +30,10 @@ function EvolutionListScreen({ navigation }) {
   };
 
   const goToCreate = () => {
-      navigation.navigate("CreateEvolution")
+      navigation.navigate("CreateEvolution", {
+        id,
+        onGoBack: getEvolutions(),
+      })
   }
 
   const renderEvolutionList = () => {

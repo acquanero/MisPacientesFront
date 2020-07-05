@@ -8,30 +8,50 @@ import {
     Textarea,
     Form,
 } from "native-base";
-import { StyleSheet, ScrollView, View, Button } from 'react-native';
+import { StyleSheet, ScrollView, View, Button, TextInput } from 'react-native';
 import React, { useEffect, useState } from "react";
 import API from "../api";
 import { LoadingSpinner, GenericList } from "../components";
 
 const CreateEvolutionScreen = ({ navigation }) => {
-    const [active, setActive] = useState(false);
-    const [descripcion, setDescripcion] = useState("");
-    const [motivo, setMotivo] = useState("");
+
+    const id = navigation.getParam("id", null);
+    
+    const [state, setState] = useState({
+        idMedico: "123",
+        idPaciente: id,
+        fecha: Date.now(),
+        motivoConsulta: "",
+        descripcion: "",
+      });
+
+    const { idMedico, idPaciente, fecha, motivoConsulta, descripcion } = state;
 
     async function cargarEvolucion() {
         try {
-          setLoading(true);
-          const response = await API.post("/evoluciones");
+            console.log("antes")
+            const response = await API.post("/evoluciones", {
+                idMedico,
+                idPaciente,
+                fecha,
+                motivoConsulta,
+                descripcion,
+            });
+            console.log(response)
+            console.log("despues")
         } catch (error) {
-          console.error(error);
+            console.error(error);
+            alert("Hubo un error en la carga")
         } finally {
-          setLoading(false);
+            alert("Datos cargados")
+            navigation.goBack()
         }
-      }
+    }
 
-      function prueba(){
-          console.log({motivo} + "-"  + {descripcion} )
-      }
+  function prueba() {
+        console.log(motivoConsulta + "-" + descripcion + "-" + fecha + "El id: " + id)
+        navigation.goBack()
+   }
 
     return (
         <ScrollView>
@@ -47,32 +67,23 @@ const CreateEvolutionScreen = ({ navigation }) => {
                                 <Text style={styles.title}>Motivo de Consulta:</Text>
                                 <Textarea 
                                 style={styles.inputMotivo} 
-                                rowSpan={1} 
-                                bordered 
                                 placeholder="motivo de consulta"
-                                onChangeText={(text) => {
-                                    setMotivo(text)
-                                }}
+                                onChangeText={(text) => setState({ ...state, motivoConsulta: text })}
                                 />
                             </Form>
                             <Text> </Text>
                             <Form>
                                 <Text style={styles.title}>Descripcion:</Text>
-                                <Textarea 
+                                <Textarea
                                 style={styles.inputDescripcion} 
-                                rowSpan={5} 
-                                bordered 
                                 placeholder="descripción" 
-                                textBreakStrategy="balanced"
-                                onChangeText={(text) => {
-                                    setDescripcion(text)
-                                }}
+                                onChangeText={(text) => setState({ ...state, descripcion: text })}
                                 />
                             </Form>
                             <View style={styles.cajaBoton}>
                                 <Button 
                                 title="Guardar"
-                                onPress={()=>{prueba()}}
+                                onPress={()=>{cargarEvolucion()}}
                                 />
                             </View>
 
