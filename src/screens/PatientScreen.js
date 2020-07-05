@@ -36,6 +36,10 @@ function PatientScreen({ navigation }) {
     getPatient();
   }, []);
 
+  function verEvoluciones() {
+    navigation.navigate("EvolutionList", { id })
+  }
+
   const renderPatientInfo = () => {
     if (!patient) {
       if (loading) {
@@ -130,7 +134,9 @@ function PatientScreen({ navigation }) {
         onPress={() => setActive(!active)}
       >
         <Icon name="more" />
-        <Button style={{ backgroundColor: "#3B5998" }}>
+        <Button style={{ backgroundColor: "#3B5998" }}
+          onPress={() => {verEvoluciones()}}
+        >
           <Icon type="Feather" name="clipboard" />
         </Button>
         <Button style={{ backgroundColor: "#34A34F" }}>
