@@ -29,6 +29,10 @@ function EvolutionListScreen({ navigation }) {
     navigation.navigate("Evolution", { id });
   };
 
+  const goToCreate = () => {
+      navigation.navigate("CreateEvolution")
+  }
+
   const renderEvolutionList = () => {
     if (!evolutions || evolutions.length === 0) {
       if (loading) {
@@ -66,6 +70,7 @@ function EvolutionListScreen({ navigation }) {
         containerStyle={{}}
         style={{ backgroundColor: "#5067FF" }}
         position="bottomRight"
+        onPress={() => {goToCreate()}}
       >
         <Icon name="add" />
       </Fab>
