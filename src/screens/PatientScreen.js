@@ -40,6 +40,12 @@ function PatientScreen({ navigation }) {
     navigation.navigate("EvolutionList", { id });
   }
 
+
+  function editPatient() {
+    navigation.navigate("EditPatient", { id })
+  }
+
+
   const renderPatientInfo = () => {
     if (!patient) {
       if (loading) {
@@ -143,7 +149,9 @@ function PatientScreen({ navigation }) {
           <Icon type="Feather" name="clipboard" />
         </Button>
         <Button style={{ backgroundColor: "#34A34F" }}>
-          <Icon type="FontAwesome" name="pencil" />
+          <Icon type="FontAwesome" name="pencil" onPress={() => {
+                editPatient(id);
+              }}/>
         </Button>
         <Button style={{ backgroundColor: "#DD5144" }}>
           <Icon type="Feather" name="trash" />

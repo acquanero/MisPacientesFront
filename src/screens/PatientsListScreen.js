@@ -24,9 +24,13 @@ function PatientsListScreen({ navigation }) {
 		getPatients();
 	}, []);
 
-	const openPatient = (id) => {
-		navigation.navigate('Patient', { id });
-	};
+  const newPatient = () => {
+    navigation.navigate("Patient", { id });
+  }
+  
+  const openPatient = (id) => {
+    navigation.navigate("Patient", { id });
+  };
 
 	const renderPatientsList = () => {
 		if (!patients || patients.length === 0) {
@@ -57,14 +61,19 @@ function PatientsListScreen({ navigation }) {
 		);
 	};
 
-	return (
-		<React.Fragment>
-			<Content>{renderPatientsList()}</Content>
-			<Fab direction="up" containerStyle={{}} style={{ backgroundColor: '#5067FF' }} position="bottomRight">
-				<Icon name="add" />
-			</Fab>
-		</React.Fragment>
-	);
+  return (
+    <React.Fragment>
+      <Content>{renderPatientsList()}</Content>
+      <Fab
+        direction="up"
+        containerStyle={{}}
+        style={{ backgroundColor: "#5067FF" }}
+        position="bottomRight"
+      >
+        <Icon name="add" onPress={newPatient} />
+      </Fab>
+    </React.Fragment>
+  );
 }
 
 PatientsListScreen.navigationOptions = {
