@@ -2,12 +2,13 @@ import { Body, Card, CardItem, Container, Content, Text } from "native-base";
 import React, { useEffect, useState } from "react";
 import API from "../api";
 import LoadingSpinner from "../components/LoadingSpinner";
+import { formatDateTime } from "../utils/dates";
 
 function ShiftScreen({ navigation }) {
   const id = navigation.getParam("id", null);
 
   const [shift, setShift] = useState(null);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   useEffect(() => {
     async function getShift() {
       try {
@@ -33,6 +34,7 @@ function ShiftScreen({ navigation }) {
       return <Text h3>No hay Turno</Text>;
     }
     const { fecha, motivoConsulta } = shift;
+    const date = formatDateTime(fecha);
     return (
       <React.Fragment>
         <Card>
@@ -41,7 +43,7 @@ function ShiftScreen({ navigation }) {
           </CardItem>
           <CardItem bordered>
             <Body>
-              <Text>Fecha: {fecha}</Text>
+              <Text>Fecha: {date}</Text>
               <Text>Motivo de Consulta: {motivoConsulta}</Text>
             </Body>
           </CardItem>

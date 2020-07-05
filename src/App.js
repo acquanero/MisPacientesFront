@@ -2,7 +2,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { registerRootComponent, SplashScreen } from "expo";
 import { Asset } from "expo-asset";
 import * as Font from "expo-font";
-import { Container } from "native-base";
+import { Container, Root } from "native-base";
 import React from "react";
 import { SafeAreaView, StyleSheet } from "react-native";
 import Navigation from "./navigation";
@@ -47,11 +47,13 @@ function App(props) {
     return null;
   } else {
     return (
-      <SafeAreaView style={styles.container}>
-        <Container>
-          <Navigation />
-        </Container>
-      </SafeAreaView>
+      <Root>
+        <SafeAreaView style={styles.container}>
+          <Container>
+            <Navigation />
+          </Container>
+        </SafeAreaView>
+      </Root>
     );
   }
 }

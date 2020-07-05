@@ -36,8 +36,8 @@ function PatientScreen({ navigation }) {
     getPatient();
   }, []);
 
-  function verEvoluciones() {
-    navigation.navigate("EvolutionList", { id })
+  function openEvolutionList() {
+    navigation.navigate("EvolutionList", { id });
   }
 
   const renderPatientInfo = () => {
@@ -134,8 +134,11 @@ function PatientScreen({ navigation }) {
         onPress={() => setActive(!active)}
       >
         <Icon name="more" />
-        <Button style={{ backgroundColor: "#3B5998" }}
-          onPress={() => {verEvoluciones()}}
+        <Button
+          style={{ backgroundColor: "#3B5998" }}
+          onPress={() => {
+            openEvolutionList();
+          }}
         >
           <Icon type="Feather" name="clipboard" />
         </Button>

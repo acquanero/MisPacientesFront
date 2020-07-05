@@ -1,12 +1,22 @@
-import { Container, Content, List, ListItem, Text } from "native-base";
+import { Container, Content, List, ListItem, Text, Toast } from "native-base";
 import React, { useEffect, useState } from "react";
 import API from "../api";
 import LoadingSpinner from "../components/LoadingSpinner";
 import ToolbarActions from "../components/ToolbarActions";
-import { formatDateTime } from "../utils/dates";
+import { formatDateTime, formatDate } from "../utils/dates";
 
 function ShiftsListScreen({ navigation }) {
-  const id = navigation.getParam("id", null);
+  const [date, setDate] = useState(formatDate());
+
+  useEffect(() => {
+    const filteredDate = navigation.getParam("date", null);
+
+    if (filteredDate) {
+      setDate(formatDate(filteredDate, "YYYY-MM-DD"));
+    } else {
+      setDate(formatDate());
+    }
+  }, [navigation]);
 
   const [shiftList, setShiftList] = useState(null);
   const [loading, setLoading] = useState(false);

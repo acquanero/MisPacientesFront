@@ -2,13 +2,15 @@ import { Content, Fab, Icon, List, ListItem, Text } from "native-base";
 import React, { useEffect, useState } from "react";
 import API from "../api";
 import { LoadingSpinner, ToolbarActions } from "../components";
-import {formatDate} from "../utils/dates";
+import { formatDate } from "../utils/dates";
 
 function EvolutionListScreen({ navigation }) {
-    const id = navigation.getParam("id", null);
-    const [evolutions, setEvolutions] = useState([]);
-    const [loading, setLoading] = useState(true);
+  const id = navigation.getParam("id", null);
+  const refresh = navigation.getParam("refresh", false);
+  const [evolutions, setEvolutions] = useState([]);
+  const [loading, setLoading] = useState(true);
 
+  useEffect(() => {
     async function getEvolutions() {
       try {
         setLoading(true);
@@ -21,20 +23,18 @@ function EvolutionListScreen({ navigation }) {
       }
     }
 
-  useEffect(() => {
     getEvolutions();
-  }, []);
+  }, [refresh]);
 
   const openEvolution = (id) => {
     navigation.navigate("Evolution", { id });
   };
 
   const goToCreate = () => {
-      navigation.navigate("CreateEvolution", {
-        id,
-        onGoBack: getEvolutions(),
-      })
-  }
+    navigation.navigate("CreateEvolution", {
+      id,
+    });
+  };
 
   const renderEvolutionList = () => {
     if (!evolutions || evolutions.length === 0) {
@@ -56,7 +56,7 @@ function EvolutionListScreen({ navigation }) {
               }}
             >
               <Text>
-                {formatDate({fecha})} - {motivoConsulta}
+                {formatDate({ fecha })} - {motivoConsulta}
               </Text>
             </ListItem>
           );
@@ -73,7 +73,9 @@ function EvolutionListScreen({ navigation }) {
         containerStyle={{}}
         style={{ backgroundColor: "#5067FF" }}
         position="bottomRight"
-        onPress={() => {goToCreate()}}
+        onPress={() => {
+          goToCreate();
+        }}
       >
         <Icon name="add" />
       </Fab>
