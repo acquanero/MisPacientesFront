@@ -1,8 +1,9 @@
 import axios from "axios";
+import { AsyncStorage } from "react-native";
 
 const BASE_URL = "https://damp-waters-55481.herokuapp.com/api";
 
-const DEBUG = false; // Muestra los logs de las peticiones si esta en true
+const DEBUG = true; // Muestra los logs de las peticiones si esta en true
 
 const API = axios.create({
   baseURL: BASE_URL,
@@ -20,11 +21,19 @@ function getUrl(config) {
 
 // Intercept all request
 API.interceptors.request.use(
-  (config) => {
+  async (config) => {
     DEBUG && console.log(`${config.method.toUpperCase()} - ${getUrl(config)}:`);
+    const token = await AsyncStorage.getItem("token");
+    if (token) {
+      config.headers.authorization = token;
+    }
+    console.log(config);
     return config;
   },
-  (error) => Promise.reject(error)
+  (error) => {
+    console.log("ERROR: ", error);
+    return Promise.reject(error);
+  }
 );
 
 // Intercept all responses

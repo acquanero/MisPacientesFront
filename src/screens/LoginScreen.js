@@ -9,8 +9,8 @@ import API from "../api";
 import { Block, Button, Input, Text } from "../components";
 import { theme } from "../constants";
 
-const VALID_EMAIL = "test@test.com";
-const VALID_PASSWORD = "1234";
+const VALID_EMAIL = "prueba@prueba.com";
+const VALID_PASSWORD = "12345";
 
 const Login = (props) => {
   const [loading, setLoading] = useState(false);
@@ -25,15 +25,12 @@ const Login = (props) => {
   const hasErrors = (key) => (errors.includes(key) ? styles.hasErrors : null);
 
   const handleLogin = async () => {
-    // TODO: Sacar cuando este listo el back
-    navigation.navigate("Shifts");
-    return;
     setLoading(true);
     const { email, password } = state;
 
     try {
       // Intentamos pegarle al endpoint de login
-      const response = await API.post("/auth/login", {
+      const response = await API.post("/medicos/login", {
         email,
         password,
       });

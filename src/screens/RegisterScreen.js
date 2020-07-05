@@ -27,7 +27,7 @@ const Login = (props) => {
     const { name, email, password } = state;
 
     try {
-      const response = await API.post("/auth/register", {
+      const response = await API.post("/medicos/register", {
         name,
         email,
         password,
@@ -53,13 +53,13 @@ const Login = (props) => {
         </Text>
 
         <Block middle>
-          <Input
+          {/* <Input
             label="Nombre y Apellido"
             error={hasErrors("name")}
             style={[styles.input, hasErrors("name")]}
             defaultValue={state.name}
             onChangeText={(text) => setState({ ...state, name: text })}
-          />
+          /> */}
 
           <Input
             label="Email"
