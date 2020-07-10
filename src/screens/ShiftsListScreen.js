@@ -3,18 +3,18 @@ import React, { useEffect, useState } from "react";
 import API from "../api";
 import LoadingSpinner from "../components/LoadingSpinner";
 import ToolbarActions from "../components/ToolbarActions";
-import { formatDateTime, formatDate } from "../utils/dates";
+import { formatDateTime, formatDateShift } from "../utils/dates";
 
 function ShiftsListScreen({ navigation }) {
-  const [date, setDate] = useState(formatDate());
+  const [date, setDate] = useState(formatDateShift());
 
   useEffect(() => {
     const filteredDate = navigation.getParam("date", null);
 
     if (filteredDate) {
-      setDate(formatDate(filteredDate, "YYYY-MM-DD"));
+      setDate(formatDateShift(filteredDate, "YYYY-MM-DD"));
     } else {
-      setDate(formatDate());
+      setDate(formatDateShift());
     }
   }, [navigation]);
 
@@ -24,7 +24,7 @@ function ShiftsListScreen({ navigation }) {
     async function getShiftList() {
       try {
         setLoading(true);
-        const response = await API.get(`/turnos`);
+        const response = await API.get(`/turnos/dia/${date}`);
 
         setShiftList(response.data);
       } catch (error) {
