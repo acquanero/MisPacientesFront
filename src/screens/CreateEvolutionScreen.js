@@ -17,7 +17,6 @@ const CreateEvolutionScreen = ({ navigation }) => {
   const id = navigation.getParam("id", null);
 
   const [state, setState] = useState({
-    idMedico: "123",
     idPaciente: id,
     fecha: Date.now(),
     motivoConsulta: "",
@@ -29,7 +28,6 @@ const CreateEvolutionScreen = ({ navigation }) => {
   async function cargarEvolucion() {
     try {
       const response = await API.post("/evoluciones", {
-        idMedico,
         idPaciente,
         fecha,
         motivoConsulta,
