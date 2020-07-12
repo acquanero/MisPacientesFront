@@ -23,7 +23,7 @@ const CreateEvolutionScreen = ({ navigation }) => {
     descripcion: "",
   });
 
-  const { idMedico, idPaciente, fecha, motivoConsulta, descripcion } = state;
+  const { idPaciente, fecha, motivoConsulta, descripcion } = state;
 
   async function cargarEvolucion() {
     try {
