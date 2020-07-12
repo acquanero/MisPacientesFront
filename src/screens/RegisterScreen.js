@@ -12,8 +12,7 @@ import { theme } from "../constants";
 const Login = (props) => {
   const [loading, setLoading] = useState(false);
   const [state, setState] = useState({
-    name: "",
-    email: "",
+    mail: "",
     password: "",
     errors: [],
   });
@@ -24,12 +23,11 @@ const Login = (props) => {
 
   const handleRegister = async () => {
     setLoading(true);
-    const { name, email, password } = state;
+    const { mail, password } = state;
 
     try {
       const response = await API.post("/medicos/register", {
-        name,
-        email,
+        mail,
         password,
       });
       return Alert.alert("Exito", "Usuario Creado", [
@@ -66,7 +64,7 @@ const Login = (props) => {
             error={hasErrors("email")}
             style={[styles.input, hasErrors("email")]}
             defaultValue={state.email}
-            onChangeText={(text) => setState({ ...state, email: text })}
+            onChangeText={(text) => setState({ ...state, mail: text })}
           />
           <Input
             secure
