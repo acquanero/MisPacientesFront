@@ -2,6 +2,7 @@ import { Content, Fab, Icon, List, ListItem, Text } from "native-base";
 import React, { useEffect, useState } from "react";
 import API from "../api";
 import { LoadingSpinner, ToolbarActions } from "../components";
+import { AsyncStorage } from "react-native";
 
 function PatientsListScreen({ navigation }) {
   const [patients, setPatients] = useState([]);
@@ -11,7 +12,7 @@ function PatientsListScreen({ navigation }) {
     async function getPatients() {
       try {
         setLoading(true);
-        const response = await API.get("/pacientes");
+        const response = await API.get("/pacientes/medico/by-id");
         setPatients(response.data);
       } catch (error) {
         console.error(error);
