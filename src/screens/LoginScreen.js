@@ -5,14 +5,14 @@ import API from '../api';
 import { Block, Button, Input, Text } from '../components';
 import { theme } from '../constants';
 
-const VALID_EMAIL = 'pablo@acqua.com';
-const VALID_PASSWORD = 'pablo123';
+const INITIAL_MAIL = 'prueba@gmail.com';
+const INITIAL_PASSWORD = '1234';
 
 const Login = (props) => {
 	const [loading, setLoading] = useState(false);
 	const [state, setState] = useState({
-		mail: VALID_EMAIL,
-		password: VALID_PASSWORD,
+		mail: INITIAL_MAIL,
+		password: INITIAL_PASSWORD,
 		errors: [],
 	});
 
@@ -64,8 +64,8 @@ const Login = (props) => {
 				<Block middle>
 					<Input
 						label="Email"
-						error={hasErrors('email')}
-						style={[styles.input, hasErrors('email')]}
+						error={hasErrors('mail')}
+						style={[styles.input, hasErrors('mail')]}
 						defaultValue={state.mail}
 						onChangeText={(text) => setState({ ...state, mail: text })}
 					/>
