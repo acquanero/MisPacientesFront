@@ -3,18 +3,20 @@ import React, { useEffect, useState } from "react";
 import API from "../api";
 import LoadingSpinner from "../components/LoadingSpinner";
 import { formatDateTime } from "../utils/dates";
+import { Button } from "../components";
 
 function ShiftScreen({ navigation }) {
   const id = navigation.getParam("id", null);
 
   const [shift, setShift] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [paciente, setPaciente] = useState(null);
+
   useEffect(() => {
     async function getShift() {
       try {
         setLoading(true);
         const response = await API.get(`/turnos/${id}`);
-
         setShift(response.data);
       } catch (error) {
         console.error(error);
@@ -33,7 +35,7 @@ function ShiftScreen({ navigation }) {
       }
       return <Text h3>No hay Turno</Text>;
     }
-    const { fecha, motivoConsulta } = shift;
+    const { NombrePaciente, TelefonoPaciente, fecha, motivoConsulta } = shift;
     const date = formatDateTime(fecha);
     return (
       <React.Fragment>
@@ -43,6 +45,8 @@ function ShiftScreen({ navigation }) {
           </CardItem>
           <CardItem bordered>
             <Body>
+              <Text>Paciente: {NombrePaciente}</Text>
+              <Text>Telefono: {TelefonoPaciente}</Text>
               <Text>Fecha: {date}</Text>
               <Text>Motivo de Consulta: {motivoConsulta}</Text>
             </Body>

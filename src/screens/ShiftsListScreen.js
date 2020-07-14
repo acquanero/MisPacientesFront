@@ -1,4 +1,4 @@
-import { Container, Content, List, ListItem, Text, Toast } from "native-base";
+import { Container, Content, List, ListItem, Text, Toast, Button } from "native-base";
 import React, { useEffect, useState } from "react";
 import API from "../api";
 import LoadingSpinner from "../components/LoadingSpinner";
@@ -51,7 +51,7 @@ function ShiftsListScreen({ navigation }) {
 
     return (
       <List>
-        {shiftList.map(({ _id, fecha, motivoConsulta }) => {
+        {shiftList.map(({ _id, fecha, motivoConsulta, NombrePaciente }) => {
           const shiftDate = formatDateTime(fecha);
 
           return (
@@ -63,7 +63,7 @@ function ShiftsListScreen({ navigation }) {
               }}
             >
               <Text>
-                {shiftDate} {motivoConsulta}
+                {shiftDate} - {motivoConsulta} - {NombrePaciente}
               </Text>
             </ListItem>
           );
