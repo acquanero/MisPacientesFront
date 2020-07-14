@@ -13,6 +13,7 @@ function PatientsListScreen({ navigation }) {
       try {
         setLoading(true);
         const response = await API.get("/pacientes/medico/by-id");
+        console.log(response.data)
         setPatients(response.data);
       } catch (error) {
         console.error(error);

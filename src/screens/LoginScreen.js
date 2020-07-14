@@ -5,13 +5,13 @@ import API from '../api';
 import { Block, Button, Input, Text } from '../components';
 import { theme } from '../constants';
 
-const VALID_EMAIL = 'prueba@prueba.com';
-const VALID_PASSWORD = '1234';
+const VALID_EMAIL = 'pablo@acqua.com';
+const VALID_PASSWORD = 'pablo123';
 
 const Login = (props) => {
 	const [loading, setLoading] = useState(false);
 	const [state, setState] = useState({
-		email: VALID_EMAIL,
+		mail: VALID_EMAIL,
 		password: VALID_PASSWORD,
 		errors: [],
 	});
@@ -22,12 +22,12 @@ const Login = (props) => {
 
 	const handleLogin = async () => {
 		setLoading(true);
-		const { email, password } = state;
+		const { mail, password } = state;
 
 		try {
 			// Intentamos pegarle al endpoint de login
 			const response = await API.post('/medicos/login', {
-				email,
+				mail,
 				password,
 			});
 
@@ -66,8 +66,8 @@ const Login = (props) => {
 						label="Email"
 						error={hasErrors('email')}
 						style={[styles.input, hasErrors('email')]}
-						defaultValue={state.email}
-						onChangeText={(text) => setState({ ...state, email: text })}
+						defaultValue={state.mail}
+						onChangeText={(text) => setState({ ...state, mail: text })}
 					/>
 					<Input
 						secure

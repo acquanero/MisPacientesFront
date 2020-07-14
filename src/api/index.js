@@ -25,7 +25,7 @@ API.interceptors.request.use(
     DEBUG && console.log(`${config.method.toUpperCase()} - ${getUrl(config)}:`);
     const token = await AsyncStorage.getItem("token");
     if (token) {
-      config.headers.authorization = token;
+      config.headers.authorization =  token;
     }
     console.log(config);
     return config;
