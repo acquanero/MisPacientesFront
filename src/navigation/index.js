@@ -14,13 +14,10 @@ import ShiftScreen from "../screens/ShiftScreen";
 import ShiftsListScreen from "../screens/ShiftsListScreen";
 import EvolutionListScreen from "../screens/EvolutionListScreen";
 import EvolutionScreen from "../screens/EvolutionScreen";
-<<<<<<< HEAD
 import CreateEvolutionScreen from "../screens/CreateEvolutionScreen";
 import ModifyEvolutionScreen from '../screens/ModifyEvolutionScreen';
 import CreateAppointmentScreen from "../screens/CreateAppointmentScreen";
-=======
 import EditPatientScreen from "../screens/EditPatientScreen";
->>>>>>> WIP edit patient
 
 // Sección turnos en el tab bar
 const ShiftsNavigator = createStackNavigator(
