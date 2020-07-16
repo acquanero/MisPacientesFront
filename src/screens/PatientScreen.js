@@ -7,6 +7,7 @@ import { formatDate } from '../utils/dates';
 
 function PatientScreen({ navigation }) {
 	const id = navigation.getParam('id', null);
+	const refresh = navigation.getParam("refresh", false);
 	const [active, setActive] = useState(false);
 	const [patient, setPatient] = useState(null);
 	const [loading, setLoading] = useState(true);
@@ -25,7 +26,7 @@ function PatientScreen({ navigation }) {
 		}
 
 		getPatient();
-	}, []);
+	}, [refresh]);
 
 	function openEvolutionList() {
 		navigation.navigate('EvolutionList', { id });

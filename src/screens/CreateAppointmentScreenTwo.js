@@ -16,10 +16,8 @@ const CreateAppointmentScreenTwo = ({ navigation }) => {
 
 	const { NombrePaciente, TelefonoPaciente, dia, motivoConsulta, hora } = state;
 	const fecha = dia + 'T' + hora + ':00';
-	console.log(fecha);
 	async function cargarTurno() {
 		const fecha = dia + 'T' + hora + ':00';
-		console.log(fecha);
 		try {
 			const response = await API.post('/turnos', {
 				NombrePaciente,

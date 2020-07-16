@@ -5,8 +5,8 @@ import API from '../api';
 import { Block, Button, Input, Text } from '../components';
 import { theme } from '../constants';
 
-const INITIAL_MAIL = 'prueba@gmail.com';
-const INITIAL_PASSWORD = '1234';
+const INITIAL_MAIL = 'pablo@acqua.com';
+const INITIAL_PASSWORD = 'pablo123';
 
 const Login = (props) => {
 	const [loading, setLoading] = useState(false);

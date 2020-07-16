@@ -93,7 +93,7 @@ const ModifyPatientScreen = ({ navigation }) => {
                 duration: 3000,
             });
             // Se le pasa el parametro refresh en true para que en PatientScreen se recargue.
-            navigation.navigate("Patient", { id: _id, refresh: true });
+            navigation.navigate("Patient", { id: _id, refresh: Math.random() });
         } catch (error) {
             console.error(error);
             // Mensaje de error
