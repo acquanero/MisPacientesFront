@@ -17,6 +17,7 @@ import EvolutionScreen from "../screens/EvolutionScreen";
 import CreateEvolutionScreen from "../screens/CreateEvolutionScreen";
 import ModifyEvolutionScreen from '../screens/ModifyEvolutionScreen';
 import CreateAppointmentScreen from "../screens/CreateAppointmentScreen";
+import CreateAppointmentScreenTwo from '../screens/CreateAppointmentScreenTwo';
 
 // Sección turnos en el tab bar
 const ShiftsNavigator = createStackNavigator(
@@ -29,6 +30,9 @@ const ShiftsNavigator = createStackNavigator(
     },
     CreateAppointment: {
       screen: CreateAppointmentScreen,
+    },
+    CreateAppointmentTwo: {
+      screen: CreateAppointmentScreenTwo,
     }
   },
   {

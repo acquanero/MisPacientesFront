@@ -1,13 +1,9 @@
-import { Container, Fab, Icon } from "native-base";
+import { Container } from "native-base";
 import React from "react";
 import { Calendar } from "react-native-calendars";
 import ToolbarActions from "../components/ToolbarActions";
 
 function CalendarScreen({ navigation }) {
-
-  const goToCreateAppointment = () => {
-    navigation.navigate("CreateAppointment");
-  };
 
   return (
     <Container>
@@ -16,16 +12,6 @@ function CalendarScreen({ navigation }) {
           navigation.push("ShiftsList", { date: dateString });
         }}
       />
-      <Fab direction="up"
-        containerStyle={{}}
-        style={{ backgroundColor: '#5067FF' }}
-        position="bottomRight"
-        onPress={() => {
-          goToCreateAppointment();
-        }}
-      >
-        <Icon name="add" />
-      </Fab>
     </Container>
   );
 }

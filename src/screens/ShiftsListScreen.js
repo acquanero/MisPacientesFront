@@ -1,4 +1,4 @@
-import { Container, Content, List, ListItem, Text, Toast, Button } from "native-base";
+import { Container, Content, List, ListItem, Text, Toast, Button, Fab, Icon } from "native-base";
 import React, { useEffect, useState } from "react";
 import API from "../api";
 import LoadingSpinner from "../components/LoadingSpinner";
@@ -6,6 +6,7 @@ import ToolbarActions from "../components/ToolbarActions";
 import { formatDateTime, formatDateShift } from "../utils/dates";
 
 function ShiftsListScreen({ navigation }) {
+
   const [date, setDate] = useState(formatDateShift());
 
   useEffect(() => {
@@ -37,6 +38,10 @@ function ShiftsListScreen({ navigation }) {
     getShiftList();
   }, []);
 
+  const goToCreateAppointment = () => {
+    navigation.navigate("CreateAppointment");
+  };
+
   const openShift = (id) => {
     navigation.navigate("Shift", { id });
   };
@@ -63,7 +68,7 @@ function ShiftsListScreen({ navigation }) {
               }}
             >
               <Text>
-                {shiftDate} - {motivoConsulta} - {NombrePaciente}
+                {shiftDate} - {NombrePaciente} - {motivoConsulta}
               </Text>
             </ListItem>
           );
@@ -75,6 +80,16 @@ function ShiftsListScreen({ navigation }) {
   return (
     <Container>
       <Content>{renderShiftList()}</Content>
+      <Fab direction="up"
+        containerStyle={{}}
+        style={{ backgroundColor: '#5067FF' }}
+        position="bottomRight"
+        onPress={() => {
+          goToCreateAppointment();
+        }}
+      >
+        <Icon name="add" />
+      </Fab>
     </Container>
   );
 }

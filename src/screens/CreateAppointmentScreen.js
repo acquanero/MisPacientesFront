@@ -17,131 +17,27 @@ import API from "../api";
 const CreateAppointmentScreen = ({ navigation }) => {
 
     const [state, setState] = useState({
-        NombrePaciente: "",
-        TelefonoPaciente: "",
-        dia: Date.now(),
-        motivoConsulta: "",
-        hora: "00:00"
+        dia: "",
     });
 
-    const { NombrePaciente, TelefonoPaciente, dia, motivoConsulta, hora } = state;
+    const { dia } = state;
 
-    const prueba = () => {
-        console.log(dia + "T" + hora + ":00")
-    }
-
-    async function cargarTurno() {
-
-        const fecha = dia + "T" + hora + ":00";
-
-        try {
-            const response = await API.post("/turnos", {
-                NombrePaciente,
-                TelefonoPaciente,
-                fecha,
-                motivoConsulta,
-            });
-            // Mensaje de exito
-            Toast.show({
-                text: "Turno guardado!",
-                buttonText: "Ok",
-                type: "success",
-                duration: 3000,
-            });
-            // Se le pasa el parametro refresh en true para que en EvolutionListScreen se recargue el listado.
-            navigation.navigate("Calendar");
-        } catch (error) {
-            console.error(error);
-            // Mensaje de error
-            Toast.show({
-                text: "Ocurrió un error al guardar el turno!",
-                buttonText: "Ok",
-                type: "danger",
-                duration: 3000,
-            });
-        }
-    }
+    const goToNextStep = (dia) => {
+        navigation.navigate("CreateAppointmentTwo", { dia });
+    };
 
     return (
         <ScrollView>
             <Content>
+                <CardItem header bordered>
+                    <Text style={styles.header}>Seleccione la fecha:</Text>
+                </CardItem>
                 <Calendar
                     onDayPress={({ dateString }) => {
                         setState({ ...state, dia: dateString });
+                        goToNextStep(dia);
                     }}
                 />
-                <Card>
-                    <CardItem header bordered>
-                        <Text style={styles.header}>Datos</Text>
-                    </CardItem>
-                    <CardItem>
-
-                        <Body>
-                        <Form>
-                                <Text style={styles.title}>Hora:</Text>
-                                <Textarea
-                                    style={styles.inputDato}
-                                    placeholder="hora (formato HH:mm)"
-                                    onChangeText={(text) =>
-                                        setState({ ...state, hora: text })
-                                    }
-                                />
-                            </Form>
-                            <Text> </Text>
-                            <Form>
-                                <Text style={styles.title}>Nombre:</Text>
-                                <Textarea
-                                    style={styles.inputDato}
-                                    placeholder="nombre"
-                                    onChangeText={(text) =>
-                                        setState({ ...state, NombrePaciente: text })
-                                    }
-                                />
-                            </Form>
-                            <Text> </Text>
-                            <Form>
-                                <Text style={styles.title}>Motivo de Consulta:</Text>
-                                <Textarea
-                                    style={styles.inputDato}
-                                    placeholder="motivo de consulta"
-                                    onChangeText={(text) =>
-                                        setState({ ...state, motivoConsulta: text })
-                                    }
-                                />
-                            </Form>
-                            <Text> </Text>
-                            <Form>
-                                <Text style={styles.title}>Telefono:</Text>
-                                <Textarea
-                                    style={styles.inputDato}
-                                    placeholder="telefono"
-                                    onChangeText={(text) =>
-                                        setState({ ...state, TelefonoPaciente: text })
-                                    }
-                                />
-                            </Form>
-                            <View style={styles.cajaBoton}>
-                                <Button
-                                    primary
-                                    style={styles.estiloBoton}
-                                    onPress={() => {
-                                        cargarTurno();
-                                    }}
-                                >
-                                    <Text>Guardar</Text>
-                                </Button>
-                                <Button
-                                    danger
-                                    onPress={() => {
-                                        navigation.goBack();
-                                    }}
-                                >
-                                    <Text>Cancelar</Text>
-                                </Button>
-                            </View>
-                        </Body>
-                    </CardItem>
-                </Card>
             </Content>
         </ScrollView>
     );
