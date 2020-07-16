@@ -7,20 +7,23 @@ import { formatDateTime, formatDateShift } from "../utils/dates";
 
 function ShiftsListScreen({ navigation }) {
 
-  const [date, setDate] = useState(formatDateShift());
+  const fechaRecibida = navigation.getParam("date", null);
+
+  const [date, setDate] = useState(formatDateShift(fechaRecibida));
+  const [shiftList, setShiftList] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    const filteredDate = navigation.getParam("date", null);
-
-    if (filteredDate) {
-      setDate(formatDateShift(filteredDate, "YYYY-MM-DD"));
+    console.log(fechaRecibida)
+  
+    if (fechaRecibida) {
+      setDate(formatDateShift(fechaRecibida, "YYYY-MM-DD"));
     } else {
       setDate(formatDateShift());
     }
   }, [navigation]);
+  
 
-  const [shiftList, setShiftList] = useState(null);
-  const [loading, setLoading] = useState(false);
   useEffect(() => {
     async function getShiftList() {
       try {

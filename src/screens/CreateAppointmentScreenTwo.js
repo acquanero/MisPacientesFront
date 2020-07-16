@@ -9,7 +9,6 @@ import {
     Toast,
     Button,
 } from "native-base";
-import { Calendar } from "react-native-calendars";
 import React, { useState } from "react";
 import { ScrollView, StyleSheet, View } from "react-native";
 import API from "../api";
@@ -26,20 +25,10 @@ const CreateAppointmentScreenTwo = ({ navigation }) => {
         hora: "00:00"
     });
 
-    const [dia, setDia] = useState(eldia)
-
-    const { NombrePaciente, TelefonoPaciente, motivoConsulta, hora } = state;
+    const { NombrePaciente, TelefonoPaciente, dia, motivoConsulta, hora } = state;
 
     const prueba = () => {
         console.log(dia + "T" + hora + ":00")
-    }
-
-    const pruebados = () => {
-        console.log(NombrePaciente)
-        console.log(TelefonoPaciente)
-        console.log(motivoConsulta)
-        console.log(hora)
-        console.log(dia)
     }
 
     async function cargarTurno() {
@@ -132,7 +121,7 @@ const CreateAppointmentScreenTwo = ({ navigation }) => {
                                     primary
                                     style={styles.estiloBoton}
                                     onPress={() => {
-                                        pruebados();
+                                        cargarTurno();
                                     }}
                                 >
                                     <Text>Guardar</Text>
