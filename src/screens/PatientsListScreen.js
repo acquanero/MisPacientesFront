@@ -2,10 +2,9 @@ import { Content, Fab, Icon, List, ListItem, Text } from 'native-base';
 import React, { useEffect, useState } from 'react';
 import API from '../api';
 import { LoadingSpinner, ToolbarActions } from '../components';
-import { AsyncStorage } from 'react-native';
 
 function PatientsListScreen({ navigation }) {
-	const refresh = navigation.getParam("refresh", false);
+	const refresh = navigation.getParam('refresh', false);
 	const [patients, setPatients] = useState([]);
 	const [loading, setLoading] = useState(true);
 
@@ -26,8 +25,8 @@ function PatientsListScreen({ navigation }) {
 	}, [refresh]);
 
 	const goToCreate = () => {
-		navigation.navigate("CreatePatient");
-	  };
+		navigation.navigate('CreatePatient');
+	};
 
 	const openPatient = (id) => {
 		navigation.navigate('Patient', { id });
@@ -65,14 +64,15 @@ function PatientsListScreen({ navigation }) {
 	return (
 		<React.Fragment>
 			<Content>{renderPatientsList()}</Content>
-			<Fab direction="up"
+			<Fab
+				direction="up"
 				containerStyle={{}}
 				style={{ backgroundColor: '#5067FF' }}
 				position="bottomRight"
 				onPress={() => {
-                    goToCreate();
-                  }}
-				>
+					goToCreate();
+				}}
+			>
 				<Icon name="add" />
 			</Fab>
 		</React.Fragment>
