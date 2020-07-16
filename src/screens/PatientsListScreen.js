@@ -5,6 +5,7 @@ import { LoadingSpinner, ToolbarActions } from '../components';
 import { AsyncStorage } from 'react-native';
 
 function PatientsListScreen({ navigation }) {
+	const refresh = navigation.getParam("refresh", false);
 	const [patients, setPatients] = useState([]);
 	const [loading, setLoading] = useState(true);
 
@@ -22,7 +23,7 @@ function PatientsListScreen({ navigation }) {
 		}
 
 		getPatients();
-	}, []);
+	}, [refresh]);
 
 	const openPatient = (id) => {
 		navigation.navigate('Patient', { id });

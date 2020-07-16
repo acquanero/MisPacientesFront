@@ -8,8 +8,10 @@ import {
   Fab,
   Icon,
   Text,
+  Toast,
 } from "native-base";
 import React, { useEffect, useState } from "react";
+import {Alert} from "react-native";
 import API from "../api";
 import { LoadingSpinner, GenericList } from "../components";
 import { formatDate } from "../utils/dates";
@@ -39,6 +41,61 @@ function PatientScreen({ navigation }) {
   function openEvolutionList() {
     navigation.navigate("EvolutionList", { id });
   }
+
+  async function deletePatient() {
+
+    const {
+      _id,
+      nombre,
+      apellido,
+      dni,
+      fechaNacimiento,
+      obraSocial,
+      plan,
+      numAfiliado,
+      antecedentes,
+      medicacionHabitual,
+      alergias,
+      cirugias,
+    } = patient;
+
+    try {
+        setLoading(true);
+        const response = await API.delete(`/pacientes/${_id}`);
+        console.log(response)
+        Toast.show({
+            text: "Paciente eliminado",
+            buttonText: "Ok",
+            type: "success",
+            duration: 3000,
+          });
+    } catch (error) {
+        console.error(error);
+        Toast.show({
+            text: "Ocurrió un error al eliminar",
+            buttonText: "Ok",
+            type: "danger",
+            duration: 3000,
+        });
+    } finally {
+        navigation.navigate("PatientsList", { refresh: true });
+    }
+}
+
+  const goToDelete = () => {
+    Alert.alert(
+        "Eliminar Paciente",
+        "¿Estas seguro que desea eliminar el paciente?",
+        [
+            {
+                text: "No",
+                style: "cancel",
+            },
+            { text: "Si", onPress: deletePatient },
+        ],
+        { cancelable: false }
+    );
+};
 
   const renderPatientInfo = () => {
     if (!patient) {
@@ -145,7 +202,12 @@ function PatientScreen({ navigation }) {
         <Button style={{ backgroundColor: "#34A34F" }}>
           <Icon type="FontAwesome" name="pencil" />
         </Button>
-        <Button style={{ backgroundColor: "#DD5144" }}>
+        <Button
+          style={{ backgroundColor: "#DD5144" }}
+          onPress={() => {
+            goToDelete();
+        }}
+        >
           <Icon type="Feather" name="trash" />
         </Button>
       </Fab>

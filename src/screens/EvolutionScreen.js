@@ -133,15 +133,16 @@ function EvolutionScreen({ navigation }) {
                 onPress={() => setActive(!active)}
             >
                 <Icon name="more" />
-                <Button 
-                style={{ backgroundColor: "#34A34F" }}
-                onPress={() => {
-                    goToModify(evolution);
+                <Button
+                    style={{ backgroundColor: "#34A34F" }}
+                    onPress={() => {
+                        goToModify(evolution);
                     }}
                 >
                     <Icon type="FontAwesome" name="pencil" />
                 </Button>
-                <Button style={{ backgroundColor: "#DD5144" }}
+                <Button
+                    style={{ backgroundColor: "#DD5144" }}
                     onPress={() => {
                         goToDelete();
                     }}
