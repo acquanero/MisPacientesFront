@@ -25,6 +25,10 @@ function PatientsListScreen({ navigation }) {
 		getPatients();
 	}, [refresh]);
 
+	const goToCreate = () => {
+		navigation.navigate("CreatePatient");
+	  };
+
 	const openPatient = (id) => {
 		navigation.navigate('Patient', { id });
 	};
@@ -61,7 +65,14 @@ function PatientsListScreen({ navigation }) {
 	return (
 		<React.Fragment>
 			<Content>{renderPatientsList()}</Content>
-			<Fab direction="up" containerStyle={{}} style={{ backgroundColor: '#5067FF' }} position="bottomRight">
+			<Fab direction="up"
+				containerStyle={{}}
+				style={{ backgroundColor: '#5067FF' }}
+				position="bottomRight"
+				onPress={() => {
+                    goToCreate();
+                  }}
+				>
 				<Icon name="add" />
 			</Fab>
 		</React.Fragment>

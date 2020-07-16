@@ -42,6 +42,10 @@ function PatientScreen({ navigation }) {
     navigation.navigate("EvolutionList", { id });
   }
 
+  const goToModify = (paciente) => {
+    navigation.navigate("ModifyPatient", { paciente });
+};
+
   async function deletePatient() {
 
     const {
@@ -53,6 +57,7 @@ function PatientScreen({ navigation }) {
       obraSocial,
       plan,
       numAfiliado,
+      telefono,
       antecedentes,
       medicacionHabitual,
       alergias,
@@ -112,6 +117,7 @@ function PatientScreen({ navigation }) {
       obraSocial,
       plan,
       numAfiliado,
+      telefono,
       antecedentes,
       medicacionHabitual,
       alergias,
@@ -131,6 +137,7 @@ function PatientScreen({ navigation }) {
               <Text>Nombre: {nombre}</Text>
               <Text>Apellido: {apellido}</Text>
               <Text>DNI: {dni}</Text>
+              <Text>Telefono: {telefono}</Text>
               <Text>Fecha de Nacimiento: {birthday}</Text>
               <Text>Obra Social: {obraSocial}</Text>
               <Text>Plan: {plan}</Text>
@@ -199,14 +206,19 @@ function PatientScreen({ navigation }) {
         >
           <Icon type="Feather" name="clipboard" />
         </Button>
-        <Button style={{ backgroundColor: "#34A34F" }}>
+        <Button
+          style={{ backgroundColor: "#34A34F" }}
+          onPress={() => {
+            goToModify(patient);
+          }}
+        >
           <Icon type="FontAwesome" name="pencil" />
         </Button>
         <Button
           style={{ backgroundColor: "#DD5144" }}
           onPress={() => {
             goToDelete();
-        }}
+          }}
         >
           <Icon type="Feather" name="trash" />
         </Button>
